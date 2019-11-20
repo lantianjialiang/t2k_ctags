@@ -1,0 +1,116 @@
+# remove RpmSpec language, this suffix is conflict with .plist in T2K
+--languages=-RpmSpec,PlistXML
+
+# tpl
+--langdef=t2k_tpl
+--map-t2k_tpl=+.tpl
+--kinddef-t2k_tpl=t,Test,Test Class
+#--kinddef-tpl=p,TestConditionParam,Test Condition Param
+--regex-t2k_tpl=/^Test[ \t]*[a-zA-Z0-9_]+[ \t]*([a-zA-Z0-9_]+)/\1/t/ 
+#--regex-tpl=/TestConditionParam[ \t=]+([a-zA-Z0-9_]+)/\1/p/ 
+
+# pattern list
+--langdef=t2k_plist
+--map-t2k_plist=+.plist
+--kinddef-t2k_plist=g,GlobalPList,Global Pattern List
+--regex-t2k_plist=/^GlobalPList[ \t]*([a-zA-Z0-9_]+)/\1/g/ 
+
+# tcg
+--langdef=t2k_tcg
+--map-t2k_tcg=+.tcg
+--kinddef-t2k_tcg=g,TCG,Test Condition Group
+--kinddef-t2k_tcg=c,TC,Test Condition
+--regex-t2k_tcg=/^TestConditionGroup[ \t]*([a-zA-Z0-9_]+)/\1/g/ 
+--regex-t2k_tcg=/^TestCondition[ \t]*([a-zA-Z0-9_]+)/\1/c/ 
+
+# tim
+--langdef=t2k_tim
+--map-t2k_tim=+.tim
+--kinddef-t2k_tim=t,Timing,Timing
+--regex-t2k_tim=/^Timing[ \t]*([a-zA-Z0-9_]+)/\1/t/
+
+# tmap
+--langdef=t2k_tmap
+--map-t2k_tmap=+.tmap
+--kinddef-t2k_tmap=m,TimingMap,Timing Map
+--regex-t2k_tmap=/^TimingMap[ \t]*([a-zA-Z0-9_]+)/\1/m/
+
+# lvl
+--langdef=t2k_lvl
+--map-t2k_lvl=+.lvl
+--kinddef-t2k_lvl=l,Levels,Levels
+--kinddef-t2k_lvl=a,AttributeSets,Attribute Sets
+--regex-t2k_lvl=/^Levels[ \t]*([a-zA-Z0-9_]+)/\1/l/
+--regex-t2k_lvl=/^AttributeSets[ \t]*([a-zA-Z0-9_]+)/\1/a/
+
+# spec
+--langdef=t2k_spec
+--map-t2k_spec=+.spec
+--kinddef-t2k_spec=s,SpecSet,Specification Set
+--kinddef-t2k_spec=v,SpecVariable,Specification Variable
+
+# don't mix regex with _mtable_regex
+#--regex-t2k_spec=/SpecificationSet[ \t]*([a-zA-Z0-9_]+)/\1/s
+
+# the regex-LANG is for one line, so below code is not work
+#--regex-t2k_spec=/SpecificationSet[ \t]*([a-zA-Z0-9_]+)/\1/s/{scope=push}
+#--regex-t2k_spec=/[ \t]*([a-zA-Z0-9_]+)/\1/v/{scope=ref}
+#--regex-t2k_spec=/(\))/\1/v/{scope=pop}
+
+--_tabledef-t2k_spec=toplevel
+--_tabledef-t2k_spec=vars
+
+--_mtable-regex-t2k_spec=toplevel/SpecificationSet[ \t]*([a-zA-Z0-9_]+)\(/\1/s/{tenter=vars}
+--_mtable-regex-t2k_spec=toplevel/.//
+
+--_mtable-regex-t2k_spec=vars/\)//{tleave}
+--_mtable-regex-t2k_spec=vars/([a-zA-Z0-9_]+)[,]*/\1/v/
+--_mtable-regex-t2k_spec=vars/.//
+
+--kinddef-t2k_spec=v,Variable,Variable
+--regex-t2k_spec=/[ \t]+Double[ \t]*([a-zA-Z0-9_]+)[ \t]*=/\1/v/
+--regex-t2k_spec=/[ \t]+Integer[ \t]*([a-zA-Z0-9_]+)[ \t]*=/\1/v/
+--regex-t2k_spec=/[ \t]+Time[ \t]*([a-zA-Z0-9_]+)[ \t]*=/\1/v/
+--regex-t2k_spec=/[ \t]+Voltage[ \t]*([a-zA-Z0-9_]+)[ \t]*=/\1/v/
+--regex-t2k_spec=/[ \t]+Current[ \t]*([a-zA-Z0-9_]+)[ \t]*=/\1/v/
+--regex-t2k_spec=/[ \t]+Frequency[ \t]*([a-zA-Z0-9_]+)[ \t]*=/\1/v/
+
+
+# pin
+--langdef=t2k_pin
+--map-t2k_pin=+.pin
+--kinddef-t2k_pin=g,Group,Group
+--regex-t2k_pin=/[ \t]+Group[ \t]*([a-zA-Z0-9_]+)/\1/g/
+--regex-t2k_pin=/^#//{exclusive}
+
+# dcp
+--langdef=t2k_dcp
+--map-t2k_dcp=+.dcp
+--kinddef-t2k_dcp=d,DCParametrics,DC Parametrics
+--regex-t2k_dcp=/DCParametrics[ \t]*([a-zA-Z0-9_]+)/\1/d/
+--regex-t2k_dcp=/[ \t]*#//{exclusive}
+
+# usrv
+# seems the regex not support alternative
+--langdef=t2k_usrv
+--map-t2k_usrv=+.usrv
+--kinddef-t2k_usrv=v,Variable,Variable
+--regex-t2k_usrv=/[ \t]+Double[ \t]*([a-zA-Z0-9_]+)/\1/v/
+--regex-t2k_usrv=/[ \t]+Integer[ \t]*([a-zA-Z0-9_]+)/\1/v/
+--regex-t2k_usrv=/[ \t]+Time[ \t]*([a-zA-Z0-9_]+)/\1/v/
+--regex-t2k_usrv=/[ \t]+Voltage[ \t]*([a-zA-Z0-9_]+)/\1/v/
+--regex-t2k_usrv=/[ \t]+Current[ \t]*([a-zA-Z0-9_]+)/\1/v/
+--regex-t2k_usrv=/[ \t]+Frequency[ \t]*([a-zA-Z0-9_]+)/\1/v/
+
+# socket
+--langdef=t2k_soc
+--map-t2k_soc=+.soc
+--kinddef-t2k_soc=p,Pin,Pin
+--regex-t2k_soc=/[ \t]+([a-zA-Z0-9_]+)[ \t]+[0-9.]+/\1/p/
+
+# bin
+--langdef=t2k_bin
+--map-t2k_bin=+.bdefs
+--kinddef-t2k_bin=l,LeafBin,Leaf Bin
+--regex-t2k_bin=/LeafBin[ \t]*([a-zA-Z0-9_]+)/\1/l/
+
