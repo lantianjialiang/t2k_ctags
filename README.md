@@ -8,6 +8,8 @@ put the t2k.ctags file under the C:\Users\user_name\ctags.d folder, and enjoy it
 1. put the t2k.ctags file under the %systemdrive%%homepath%\ctags.d
 2. install NppTags for Notepad++, restart Notepad++
 https://www.fesevur.com/npptags/
+after install the plugins, there should have a toolbar like below in Notepad++
+![Image](https://img-blog.csdnimg.cn/2019112010232658.png)
 3. enjoy it
 
 Note:
